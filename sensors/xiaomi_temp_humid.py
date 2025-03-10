@@ -37,7 +37,7 @@ class XiaomiSensor:
         """Łączenie z sensorem z ponawianiem prób."""
         for attempt in range(retries):
             try:
-                self.client = BleakClient(self.address, timeout=30)
+                self.client = BleakClient(self.address, timeout=60)
                 await self.client.connect()
                 if self.client.is_connected:
                     self.is_connected = True
