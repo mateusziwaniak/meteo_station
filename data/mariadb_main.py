@@ -1,5 +1,9 @@
 import mariadb
 from datetime import datetime
+import dotenv
+import os
+
+dotenv.load_dotenv()
 
 
 class MeteoDataWriter:
@@ -82,3 +86,19 @@ class MeteoDataWriter:
 
 # Example usage:
 if __name__ == "__main__":
+    # Create an instance of the MeteoDataWriter with your DB credentials
+    writer = MeteoDataWriter(
+        host=os.getenv("METEO_DB_HOST"),
+        port=3306,
+        user=os.getenv("METEO_DB_USER"),
+        password=os.getenv("METEO_DB_PASSWORD"),
+        database=os.getenv("METEO_DB_NAME")
+    )
+
+    current_time = datetime.now()
+
+    # Insert a reading; additional fields (pressure, wind_speed) are optional.
+    writer.write_reading(temperature=22.5, humidity=55.0, pressure=1013.25, wind_speed=3.5, timestamp=current_time)
+
+    # Close the connection when done
+    writer.close()

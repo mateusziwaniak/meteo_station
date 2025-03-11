@@ -1,12 +1,17 @@
 import tkinter as tk
 import requests
+import dotenv
+import os
+
+
+dotenv.load_dotenv()
 
 
 class WeatherApi:
 
 
     def fetch_weather(self):
-        api_key = "0b9945acb00a41d892e112008250803"
+        api_key = os.getenv("WEATHER_API_KEY")
         location = "Wroclaw"  # Możesz zmienić lokalizację
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}&aqi=yes"
         response = requests.get(url)
