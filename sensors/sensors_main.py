@@ -1,12 +1,17 @@
 import asyncio
+import os
+from flask.cli import load_dotenv
+
 from sensors.xiaomi_air_purifier import XiaomiAirQuality
 from sensors.xiaomi_temp_humid import XiaomiSensor
+
+load_dotenv()
 
 async def main():
     # Inicjalizacja oczyszczacza powietrza i jednorazowy odczyt
     air_purifier = XiaomiAirQuality(
         ip="192.168.1.13",  # Adres IP oczyszczacza
-        token="0828622c7d7bd7a08bec153f09a06e23",  # Token urządzenia
+        token=os.getenv("AIR_PURIFIER_TOKEN"),  # Token urządzenia
         model="classic"  # Zmień na 'classic' jeśli masz starszy model
     )
     air_purifier.update()

@@ -3,7 +3,7 @@ import time
 
 
 class XiaomiAirQuality:
-    """Klasa do odczytu jakości powietrza (PM2.5) z oczyszczacza Xiaomi."""
+    """Klasa do odczytu danych z oczyszczacza Xiaomi."""
 
     def __init__(self, ip, token, model="miot"):
         """
@@ -20,6 +20,9 @@ class XiaomiAirQuality:
         else:
             raise ValueError("Nieprawidłowy model: użyj 'miot' lub 'classic'")
         self.pm25 = None
+        self.av_pm25 = None
+        self.temp = None
+        self.hum = None
         self.last_update = None
 
     def update(self):
