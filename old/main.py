@@ -1,12 +1,9 @@
-from datetime import datetime
-
 # from sensors.sensor_reader import SensorReader
 # from weather.weather_api import WeatherAPI
 # from data.data_manager import DataManager
 # from display.display_manager import DisplayManager
 
-from data.mariadb_main import MeteoDataWriter
-from weather.meteo_main import WeatherApi
+from old.weather import WeatherApi
 
 # XIAOMI MACs
 XIAOMI_SENSOR_SALON = "A4:C1:38:57:C8:02"

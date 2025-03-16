@@ -20,7 +20,7 @@ class XiaomiAirQuality:
         else:
             raise ValueError("Nieprawidłowy model: użyj 'miot' lub 'classic'")
         self.pm25 = None
-        self.av_pm25 = None
+        self.avg_pm25 = None
         self.temp = None
         self.hum = None
         self.last_update = None
@@ -30,12 +30,12 @@ class XiaomiAirQuality:
         try:
             status = self.device.status()  # pobranie aktualnego statusu
             self.pm25 = status.aqi  # PM2.5 w µg/m³
-            self.av_pm25 = status.average_aqi  # PM2.5 w µg/m³
+            self.avg_pm25 = status.average_aqi  # PM2.5 w µg/m³
             self.temp = status.temperature
             self.hum = status.humidity
             self.last_update = time.ctime()
             print(f"[{self.ip}] PM2.5: {self.pm25} µg/m³ (zaktualizowano: {self.last_update})\n"
-                  f"[{self.ip}] Avg PM2.5: {self.av_pm25} µg/m³ (zaktualizowano: {self.last_update})\n"
+                  f"[{self.ip}] Avg PM2.5: {self.avg_pm25} µg/m³ (zaktualizowano: {self.last_update})\n"
                   f"[{self.ip}] Temp: {self.temp} C (zaktualizowano: {self.last_update})\n"
                   f"[{self.ip}] Humidity: {self.hum} % (zaktualizowano: {self.last_update})\n"
                   )
@@ -49,6 +49,24 @@ class XiaomiAirQuality:
         if self.pm25 is None:
             print(f"[{self.ip}] Brak danych - uruchom update() najpierw.")
         return self.pm25
+
+    def get_avg_pm25(self):
+        """Zwraca aktualną wartość PM2.5."""
+        if self.avg_pm25 is None:
+            print(f"[{self.ip}] Brak danych - uruchom update() najpierw.")
+        return self.avg_pm25
+
+    def get_temp(self):
+        """Zwraca aktualną wartość temperatury."""
+        if self.temp is None:
+            print(f"[{self.ip}] Brak danych - uruchom update() najpierw.")
+        return self.temp
+
+    def get_hum(self):
+        """Zwraca aktualną wartość wilgotności."""
+        if self.hum is None:
+            print(f"[{self.ip}] Brak danych - uruchom update() najpierw.")
+        return self.hum
 
     def run(self, interval=60):
         """Uruchamia ciągły odczyt w pętli z zadanym interwałem (w sekundach)."""

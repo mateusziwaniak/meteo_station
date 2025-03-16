@@ -2,8 +2,8 @@ import asyncio
 import os
 from flask.cli import load_dotenv
 
-from sensors.xiaomi_air_purifier import XiaomiAirQuality
-from sensors.xiaomi_temp_humid import XiaomiSensor
+from old.sensors.xiaomi_air_purifier import XiaomiAirQuality
+from old.sensors.xiaomi_temp_humid import XiaomiSensor
 
 load_dotenv()
 
@@ -14,9 +14,9 @@ async def main():
         token=os.getenv("AIR_PURIFIER_TOKEN"),  # Token urządzenia
         model="classic"  # Zmień na 'classic' jeśli masz starszy model
     )
+    # air_purifier.run()
+
     air_purifier.update()
-    pm25_value = air_purifier.get_pm25()
-    print(f"Jednorazowy odczyt PM2.5: {pm25_value} µg/m³")
 
     # Tworzenie instancji dla dwóch sensorów
     sensor_salon = XiaomiSensor("A4:C1:38:57:C8:02", "Salon")
